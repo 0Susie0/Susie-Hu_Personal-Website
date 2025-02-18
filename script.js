@@ -11,130 +11,128 @@ $(document).ready(function() {
     once: true
   });
     
-  // Carousel variables
-  var $sliderWrapper = $('.slider-wrapper');
-  var $slider = $('.project-slider');
-  var $originalCards = $('.project-card'); // Original cards
-  var numOriginal = $originalCards.length;
+    // Check if there are any project cards; if not, exit early.
+    const $originalCards = $('.project-card');
+    if ($originalCards.length === 0) return;
   
-  // Clone the first and last card
-  var $firstClone = $originalCards.first().clone();
-  var $lastClone = $originalCards.last().clone();
+    const $sliderWrapper = $('.slider-wrapper');
+    const $slider = $('.project-slider');
+    const numOriginal = $originalCards.length;
   
-  // Append the first clone and prepend the last clone
-  $slider.append($firstClone);
-  $slider.prepend($lastClone);
+    // Clone the first and last cards for infinite looping.
+    const $firstClone = $originalCards.first().clone();
+    const $lastClone = $originalCards.last().clone();
   
-  // Update the cards collection to include the clones
-  var $cards = $('.project-card'); 
-  var totalCards = $cards.length; // totalCards = numOriginal + 2
+    // Append the first clone to the end and prepend the last clone to the beginning.
+    $slider.append($firstClone);
+    $slider.prepend($lastClone);
   
-  // Set currentIndex to 1 (the first actual card)
-  var currentIndex = 1;
+    // Update the cards collection to include clones.
+    let $cards = $('.project-card');
+    const totalCards = $cards.length; // should equal numOriginal + 2
   
-  var autoSlideInterval = 3000; // 3 seconds interval
-  var autoSlideTimer;
-  var hoverDelay = 1000; // 1 second delay for hover navigation
-  var hoverTimerLeft, hoverTimerRight;
+    // Set the initial current index to 1 (first actual card).
+    let currentIndex = 1;
+    const autoSlideInterval = 3000; // in milliseconds
+    let autoSlideTimer;
+    const hoverDelay = 1000; // 1 second delay for hover navigation
+    let hoverTimerLeft = null;
+    let hoverTimerRight = null;
   
-  // Function to update slider position (with optional transition)
-  function updateSlider(withTransition = true) {
-    if (!withTransition) {
-      $slider.css('transition', 'none');
-    } else {
-      $slider.css('transition', 'transform 0.5s ease');
-    }
-    var wrapperWidth = $sliderWrapper.width();
-    var cardWidth = $cards.outerWidth(true); // including margins
-    // Calculate offset: center the current card in the wrapper
-    var offset = (wrapperWidth - cardWidth) / 2 - currentIndex * cardWidth;
-    $slider.css('transform', 'translateX(' + offset + 'px)');
-    
-    // Update active class: only actual cards (not clones)
-    $cards.removeClass('active');
-    if (currentIndex > 0 && currentIndex < totalCards - 1) {
-      $cards.eq(currentIndex).addClass('active');
-    }
-  }
-  
-  // Initial update (without transition)
-  updateSlider(false);
-  // Re-enable transition shortly after
-  setTimeout(function() {
-    $slider.css('transition', 'transform 0.5s ease');
-  }, 50);
-  
-  // Auto-play: move to next card automatically
-  function startAutoSlide() {
-    autoSlideTimer = setInterval(function() {
-      moveToNext();
-    }, autoSlideInterval);
-  }
-  
-  function stopAutoSlide() {
-    clearInterval(autoSlideTimer);
-  }
-  
-  function moveToNext() {
-    currentIndex++;
-    updateSlider();
-  }
-  
-  function moveToPrev() {
-    currentIndex--;
-    updateSlider();
-  }
-  
-  // After transition ends, check if we are at a clone and jump to the corresponding actual card
-  $slider.on('transitionend', function() {
-    // If we moved to the clone of the first card (last element)
-    if (currentIndex === totalCards - 1) {
-      currentIndex = 1;
-      updateSlider(false);
-      setTimeout(function() {
+    // Update the slider position to center the current card.
+    function updateSlider(withTransition = true) {
+      if (!withTransition) {
+        $slider.css('transition', 'none');
+      } else {
         $slider.css('transition', 'transform 0.5s ease');
-      }, 50);
+      }
+      const wrapperWidth = $sliderWrapper.width();
+      const cardWidth = $cards.outerWidth(true); // include margins
+      // Calculate offset to center current card.
+      const offset = (wrapperWidth - cardWidth) / 2 - currentIndex * cardWidth;
+      $slider.css('transform', `translateX(${offset}px)`);
+      
+      // Update the active class (only for actual cards, not clones).
+      $cards.removeClass('active');
+      if (currentIndex > 0 && currentIndex < totalCards - 1) {
+        $cards.eq(currentIndex).addClass('active');
+      }
     }
-    // If we moved to the clone of the last card (first element)
-    if (currentIndex === 0) {
-      currentIndex = totalCards - 2;
-      updateSlider(false);
-      setTimeout(function() {
-        $slider.css('transition', 'transform 0.5s ease');
-      }, 50);
-    }
-  });
   
-  // Start auto-play
-  startAutoSlide();
-  
-  // Pause auto-play when hovering over the slider wrapper; resume when leaving
-  $sliderWrapper.on('mouseenter', stopAutoSlide);
-  $sliderWrapper.on('mouseleave', startAutoSlide);
-  
-  // Hover navigation: when mouse hovers on left overlay, slide to previous card after a delay
-  $('.nav-left').on('mouseenter', function() {
-    hoverTimerLeft = setTimeout(function() {
-      moveToPrev();
-    }, hoverDelay);
-  }).on('mouseleave', function() {
-    clearTimeout(hoverTimerLeft);
-  });
-  
-  // When mouse hovers on right overlay, slide to next card after a delay
-  $('.nav-right').on('mouseenter', function() {
-    hoverTimerRight = setTimeout(function() {
-      moveToNext();
-    }, hoverDelay);
-  }).on('mouseleave', function() {
-    clearTimeout(hoverTimerRight);
-  });
-  
-  // Update slider on window resize for responsiveness
-  $(window).on('resize', function() {
+    // Initial slider update.
     updateSlider(false);
-    setTimeout(function() {
+    setTimeout(() => {
       $slider.css('transition', 'transform 0.5s ease');
     }, 50);
+  
+    // Auto-play functions.
+    function moveToNext() {
+      currentIndex++;
+      updateSlider();
+    }
+    function moveToPrev() {
+      currentIndex--;
+      updateSlider();
+    }
+  
+    // Handle transition end to reset position when reaching clones.
+    $slider.on('transitionend', () => {
+      // If we are on the clone of the first card, jump to the actual first card.
+      if (currentIndex === totalCards - 1) {
+        currentIndex = 1;
+        updateSlider(false);
+        setTimeout(() => {
+          $slider.css('transition', 'transform 0.5s ease');
+        }, 50);
+      }
+      // If we are on the clone of the last card, jump to the actual last card.
+      if (currentIndex === 0) {
+        currentIndex = totalCards - 2;
+        updateSlider(false);
+        setTimeout(() => {
+          $slider.css('transition', 'transform 0.5s ease');
+        }, 50);
+      }
+    });
+  
+    // Auto-play: start interval to move to next card.
+    function startAutoSlide() {
+      autoSlideTimer = setInterval(moveToNext, autoSlideInterval);
+    }
+    function stopAutoSlide() {
+      clearInterval(autoSlideTimer);
+    }
+    startAutoSlide();
+  
+    // Pause auto-play when mouse enters slider area; resume on leave.
+    $sliderWrapper.on('mouseenter', stopAutoSlide);
+    $sliderWrapper.on('mouseleave', startAutoSlide);
+  
+    // Hover navigation for left overlay.
+    $('.nav-left').on('mouseenter', () => {
+      hoverTimerLeft = setTimeout(() => {
+        moveToPrev();
+      }, hoverDelay);
+    }).on('mouseleave', () => {
+      clearTimeout(hoverTimerLeft);
+    });
+  
+    // Hover navigation for right overlay.
+    $('.nav-right').on('mouseenter', () => {
+      hoverTimerRight = setTimeout(() => {
+        moveToNext();
+      }, hoverDelay);
+    }).on('mouseleave', () => {
+      clearTimeout(hoverTimerRight);
+    });
+  
+    // Recalculate slider position on window resize.
+    $(window).on('resize', () => {
+      updateSlider(false);
+      setTimeout(() => {
+        $slider.css('transition', 'transform 0.5s ease');
+      }, 50);
+    });
   });
-});
+  
+  
