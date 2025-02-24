@@ -1,0 +1,243 @@
+/* Define color variables and base styles */
+:root {
+    --primary-color: black;
+    --primary-light: gray;
+    /* Use a background image of a lake – replace 'lake.jpg' with your image file */
+    --background-image: url('lake.jpg');
+    --text-color: #333;
+    --transparent-white: rgba(255, 255, 255, 0.77); /* Semi-transparent white */
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Roboto', sans-serif;
+    /* Set the background to the lake image with full cover */
+    background: var(--background-image) no-repeat center center fixed;
+    background-size: cover;
+    color: var(--text-color);
+    line-height: 1.6;
+  }
+  
+  /* Container for consistent width and centering */
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  /* Header Styles */
+  header {
+    background: var(--primary-color);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  header h1 {
+    font-size: 1.8rem;
+    color: #fff;
+  }
+  
+  header nav ul {
+    list-style: none;
+    display: flex;
+  }
+  
+  header nav ul li {
+    margin-left: 1.5rem;
+  }
+  
+  header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  
+  header nav ul li a:hover {
+    color: #b3e5fc;
+  }
+  
+  /* Section Styles */
+  .section {
+    padding: 4rem 0;
+    background: var(--transparent-white);
+    margin: 2rem 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  }
+  
+  .section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: var(--primary-color);
+  }
+  
+  .section p {
+    font-size: 1.1rem;
+    text-align: center;
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  /* Profile Photo */
+  .profile-photo {
+    display: block;
+    margin: 1rem auto;
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+  }
+  
+  .profile-photo:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Portfolio: Projects slider*/
+  /* Hide overflow of the slider container */
+  .slider-wrapper {
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* The slider container uses flex layout; Shift it using transform */
+  .project-slider {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+
+  /* Each project card occupies 70% of the wrapper's width and has side margins */
+  .project-card {
+    flex: 0 0 70%;
+    margin: 0 15px;
+    background: rgba(255, 255, 255, 0.8); 
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.5s ease;
+  }
+
+  /* The active (center) card is slightly scaled up for emphasis */
+  .project-card.active {
+    transform: scale(1.05);
+  }
+
+  /* Style for project images */
+  .project-image {
+    width: 100%;
+    max-width: 650px; 
+    height: auto;        /* let height adjust automatically */
+    aspect-ratio: 3 / 2; /* 3:2 aspect ratio */
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .project-card h3 {
+    margin-top:  0.5rem;
+    margin-bottom: 0.5rem;
+    color: var(white,0.85);
+  }
+    
+  .project-card p {
+    font-size: 0.95rem;
+  }
+
+/* Navigation Overlays: invisible zones for hover navigation */
+.nav-left,
+.nav-right {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  z-index: 10;
+  cursor: pointer;
+}
+
+/* Left overlay covering the left half */
+.nav-left {
+  left: 0;
+}
+
+/* Right overlay covering the right half */
+.nav-right {
+  right: 0;
+}
+
+/* Contact Section Styles */
+#contact {
+  text-align: center;
+}
+
+.contact-greeting {
+  font-size: 1.2rem;
+  margin: 1rem 0;
+}
+
+/* Contact details (email, phone) */
+.contact-details {
+  margin: 1rem 0;
+  line-height: 1.6;
+}
+
+/* Social Icon Container */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem; /* space between icons */
+  margin-top: 1.5rem;
+}
+
+/* Individual Icon Style */
+.social-icons a {
+  color: #333; /* default icon color */
+  font-size: 1.5rem; /* icon size */
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #0288d1; /* hover color */
+}
+  
+  /* Footer Styles */
+  footer {
+    background: var(--primary-color);
+    padding: 1rem 0;
+    text-align: center;
+    color: #fff;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    header .container {
+      flex-direction: column;
+    }
+    
+    header nav ul {
+      flex-direction: column;
+      margin-top: 1rem;
+    }
+    
+    header nav ul li {
+      margin: 0.5rem 0;
+    }
+  }
+  
