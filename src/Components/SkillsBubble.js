@@ -1,35 +1,25 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-
-// -----------------------
-// Data & Helper Functions
-// -----------------------
+//import "./SkillsBubble.css"; // (Optional: additional styles for skills)
 
 const extendedPalette = [
-  "#03045e",
-  "#023e8a",
-  "#0077b6",
-  "#0096c7",
-  "#00b4d8",
-  "#48cae4",
-  "#90e0ef",
-  "#ade8f4",
-  "#caf0f8",
+  "#03045e", "#023e8a", "#0077b6", "#0096c7", "#00b4d8",
+  "#48cae4", "#90e0ef", "#ade8f4", "#caf0f8",
 ];
 
 const skills = [
-  { name: "HTML", level: 95 },
-  { name: "CSS", level: 95 },
-  { name: "JavaScript", level: 90 },
-  { name: "React", level: 85 },
-  { name: "Python", level: 80 },
+  { name: "Java", level: 95 },
+  { name: "SQL", level: 90 },
+  { name: "Python", level: 85 },
+  { name: "HTML", level: 80 },
+  { name: "CSS", level: 80 },
   { name: "Git", level: 80 },
-  { name: "SQL", level: 70 },
-  { name: "Firebase", level: 70 },
+  { name: "Firebase", level: 75 },
+  { name: "JavaScript", level: 75 },
   { name: "Linux", level: 70 },
+  { name: "React", level: 70 },
 ];
 
-// Convert hex color to RGBA for dynamic shadow
 function hexToRGBA(hex, alpha) {
   hex = hex.replace("#", "");
   if (hex.length === 3) {
@@ -41,25 +31,19 @@ function hexToRGBA(hex, alpha) {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
-// Map skill level to bubble size (60 to 90px)
 function getBubbleSize(level) {
-  const minLevel = 70,
-    maxLevel = 95;
-  const minSize = 60,
-    maxSize = 90;
+  const minLevel = 70, maxLevel = 95;
+  const minSize = 60, maxSize = 90;
   return ((level - minLevel) / (maxLevel - minLevel)) * (maxSize - minSize) + minSize;
 }
 
-// Order skills so that the highest-level (largest) bubble is centered
 function orderSkills(skills) {
   const sorted = [...skills].sort((a, b) => b.level - a.level);
   const n = sorted.length;
   const ordered = new Array(n);
   const center = Math.floor(n / 2);
   ordered[center] = sorted[0];
-  let left = center - 1,
-    right = center + 1,
-    i = 1;
+  let left = center - 1, right = center + 1, i = 1;
   while (i < n) {
     if (left >= 0) {
       ordered[left] = sorted[i];
@@ -76,7 +60,6 @@ function orderSkills(skills) {
   return ordered;
 }
 
-// Generate equal horizontal positions relative to container center.
 function generatePositions(total, spacing = 120) {
   const positions = [];
   const center = Math.floor(total / 2);
@@ -86,14 +69,12 @@ function generatePositions(total, spacing = 120) {
   return positions;
 }
 
-// Get the assigned color from the extended palette.
 function getAssignedColor(index, total) {
   const center = Math.floor(total / 2);
   const offset = Math.abs(index - center);
   return extendedPalette[Math.min(offset, extendedPalette.length - 1)];
 }
 
-// Sparkles component: renders a few small sparkles with faster transitions.
 const Sparkles = ({ bubbleSize }) => {
   const sparkleCount = 3;
   const sparkles = Array.from({ length: sparkleCount }, () => ({
@@ -108,7 +89,7 @@ const Sparkles = ({ bubbleSize }) => {
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: [0, 1, 0], scale: [0.8, 1.2, 0.8] }}
       transition={{
-        duration: 0.5 + Math.random() * 0.5, // Faster & subtler transitions.
+        duration: 0.5 + Math.random() * 0.5,
         repeat: Infinity,
         delay: s.delay,
         ease: "easeInOut",
@@ -128,16 +109,12 @@ const Sparkles = ({ bubbleSize }) => {
   ));
 };
 
-// -----------------------
-// BubbleItem Component
-// -----------------------
-
 function BubbleItem({ skill, pos, assignedColor, bubbleSize }) {
   const [hovered, setHovered] = useState(false);
   return (
     <motion.div
       initial={{ x: pos.x, y: 0 }}
-      animate={{ y: [0, -5, 0] }} // Continuous floating.
+      animate={{ y: [0, -5, 0] }}
       transition={{
         duration: 3 + Math.random() * 2,
         repeat: Infinity,
@@ -147,9 +124,8 @@ function BubbleItem({ skill, pos, assignedColor, bubbleSize }) {
       onHoverEnd={() => setHovered(false)}
       whileHover={{
         scale: 1.1,
-        y: -12, // Slight upward shift on hover.
-        backgroundColor: assignedColor, // Fill with border color.
-        // Combined outer and inner glow for depth.
+        y: -12,
+        backgroundColor: assignedColor,
         boxShadow: `0 0 30px 10px ${hexToRGBA(assignedColor, 0.8)}, inset 0 0 10px ${hexToRGBA(assignedColor, 0.6)}`,
         transition: { duration: 0.2, ease: "easeOut" },
       }}
@@ -157,7 +133,6 @@ function BubbleItem({ skill, pos, assignedColor, bubbleSize }) {
         position: "absolute",
         left: "50%",
         top: "50%",
-        // Use translate3d for hardware acceleration.
         transform: "translate3d(-50%, -50%, 0)",
         width: `${bubbleSize}px`,
         height: `${bubbleSize}px`,
@@ -192,26 +167,14 @@ function BubbleItem({ skill, pos, assignedColor, bubbleSize }) {
   );
 }
 
-// -----------------------
-// Main Component: SkillsBubble
-// -----------------------
-
 export default function SkillsBubble() {
   const orderedSkills = orderSkills(skills);
   const positions = generatePositions(orderedSkills.length, 120);
   return (
-    // Wrap the content with the section and container classes from your global CSS.
     <section id="skills" className="section">
       <div className="container">
         <h2>Technical Skills</h2>
-        <div
-          style={{
-            position: "relative",
-            width: "100%",
-            minHeight: "400px",
-            overflow: "hidden",
-          }}
-        >
+        <div style={{ position: "relative", width: "100%", minHeight: "400px", overflow: "hidden" }}>
           {orderedSkills.map((skill, index) => {
             const pos = positions[index];
             const bubbleSize = getBubbleSize(skill.level);
@@ -231,4 +194,3 @@ export default function SkillsBubble() {
     </section>
   );
 }
-

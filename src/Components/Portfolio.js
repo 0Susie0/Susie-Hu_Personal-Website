@@ -25,12 +25,11 @@ function Portfolio({ projects = defaultProjects }) {
     autoplay: true,
     autoplaySpeed: 3000,
     pauseOnHover: true,
-    arrows: false,         // Hide default arrows; we'll use custom hover overlays
+    arrows: false,         // Using custom hover overlays
     dots: false,
-    cssEase: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)', // Custom easing for smoother 3D transitions
+    cssEase: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)',
   };
 
-  // Left overlay: on hover for 1000ms, go to the previous slide.
   const handleLeftMouseEnter = () => {
     leftTimerRef.current = setTimeout(() => {
       sliderRef.current.slickPrev();
@@ -40,7 +39,6 @@ function Portfolio({ projects = defaultProjects }) {
     if (leftTimerRef.current) clearTimeout(leftTimerRef.current);
   };
 
-  // Right overlay: on hover for 1000ms, go to the next slide.
   const handleRightMouseEnter = () => {
     rightTimerRef.current = setTimeout(() => {
       sliderRef.current.slickNext();
@@ -64,7 +62,6 @@ function Portfolio({ projects = defaultProjects }) {
               </div>
             ))}
           </Slider>
-          {/* Left navigation overlay */}
           <div 
             className="nav-left" 
             style={{
@@ -79,7 +76,6 @@ function Portfolio({ projects = defaultProjects }) {
             onMouseEnter={handleLeftMouseEnter}
             onMouseLeave={handleLeftMouseLeave}
           ></div>
-          {/* Right navigation overlay */}
           <div 
             className="nav-right" 
             style={{
