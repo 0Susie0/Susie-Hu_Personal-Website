@@ -5,7 +5,7 @@ function About() {
     <section id="about" className="section">
       <div className="container">
         <h2>About Me</h2>
-        <img src="photo.jpg" alt="Susie Hu" className="profile-photo" />
+        <img src="/ProfilePhoto2.jpg" alt="Susie Hu" className="profile-photo" />
         <p>Welcome to my personal website! Explore my professional journey and personal passions.</p>
       </div>
     </section>
