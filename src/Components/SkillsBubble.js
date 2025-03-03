@@ -10,19 +10,14 @@ const brandShades = [
   "#B0CED8" 
 ];
 
-// Mapping of shades depending on skill level (70-95):
-// Higher level => Appear in the front with darker colour；Lower level => Left behind with lighter colour。
 function getColorForLevel(level) {
   const minLevel = 70, maxLevel = 95;
   const colorCount = brandShades.length;
-  // Calculate the index between 0 and (colorCount-1)
-  const ratio = 1 - (level - minLevel) / (maxLevel - minLevel); // Invert so that higher levels correspond to darker colors
+  const ratio = 1 - (level - minLevel) / (maxLevel - minLevel);
   const index = Math.round(ratio * (colorCount - 1));
   return brandShades[Math.max(0, Math.min(index, colorCount - 1))];
 }
 
-
-// Skill set with levels.
 const skills = [
   { name: "Java", level: 95 },
   { name: "SQL", level: 90 },
@@ -36,7 +31,6 @@ const skills = [
   { name: "React", level: 70 },
 ];
 
-// Sparkle effect while hovering.
 const Sparkles = ({ bubbleSize }) => {
   const sparkleCount = 3;
   const sparkles = Array.from({ length: sparkleCount }, () => ({
@@ -71,19 +65,12 @@ const Sparkles = ({ bubbleSize }) => {
   ));
 };
 
-// Skill Bubble Item
 function BubbleItem({ skill, angle, radius }) {
   const [hovered, setHovered] = useState(false);
-
-  // Bubble size match the skill level.
   const minSize = 60, maxSize = 90;
   const bubbleSize = ((skill.level - 70) / 25) * (maxSize - minSize) + minSize;
-
-  // Colour reflection：level -> brandShades
   const bubbleColor = getColorForLevel(skill.level);
   const textColor = "#FFFFFF";
-
-  // 极坐标 -> 笛卡尔坐标
   const x = radius * Math.cos(angle);
   const y = radius * Math.sin(angle);
 
@@ -101,18 +88,17 @@ function BubbleItem({ skill, angle, radius }) {
       whileHover={{
         scale: 1.1,
         backgroundColor: bubbleColor,
-        boxShadow: `0 0 20px 6px rgba(255,255,255,1.5)`,
+        boxShadow: `0 0 20px 6px rgba(255,255,255,1)`,
         transition: { duration: 0.2, ease: "easeOut" },
       }}
       style={{
         position: "absolute",
-        left: "45%",
-        top: "40%",
+        left: "42%",
+        top: "36%",
         transform: "translate3d(-50%, -50%, 0)",
         width: `${bubbleSize}px`,
         height: `${bubbleSize}px`,
         borderRadius: "50%",
-        // Set transparent as the default background colour for skill bubbles + frame
         background: "transparent",
         border: `3px solid ${bubbleColor}`,
         display: "flex",
@@ -122,7 +108,6 @@ function BubbleItem({ skill, angle, radius }) {
         transition: "box-shadow 0.3s ease, background-color 0.2s ease",
       }}
     >
-      {/* Sparkle effect */}
       {hovered && <Sparkles bubbleSize={bubbleSize} />}
       <motion.span
         whileHover={{
@@ -143,17 +128,15 @@ function BubbleItem({ skill, angle, radius }) {
   );
 }
 
-// Center bubble.
 function CenterBubble({ label, size = 110 }) {
-  // Use the darkest colour for the center bubble.
   const bubbleColor = brandShades[0];
   const textColor = "#FFFFFF";
   return (
     <motion.div
       style={{
         position: "absolute",
-        left: "42%",
-        top: "35%",
+        left: "39%",
+        top: "31%",
         transform: "translate3d(-50%, -50%, 0)",
         width: `${size}px`,
         height: `${size}px`,
@@ -201,11 +184,10 @@ export default function SkillCluster() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Surrounded by skills.
   const angleStep = (2 * Math.PI) / skills.length;
 
   return (
-    <section id="skills" className="section" style={{ textAlign: "center" }}>
+    <section id="skills" className="section" style={{ textAlign: "center", padding: '2rem 0' }}>
       <h2>Skills</h2>
       <div
         ref={containerRef}
@@ -218,10 +200,7 @@ export default function SkillCluster() {
           overflow: "hidden",
         }}
       >
-        {/* Center Bubble */}
         <CenterBubble label="Technical" size={120} />
-
-        {/* Surrounding skill bubbles */}
         {skills.map((skill, i) => {
           const angle = i * angleStep;
           return (

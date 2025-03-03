@@ -1,39 +1,44 @@
 /* 3D Carousel CSS */
-
-/* Each slide gets a 3D perspective */
 .slick-slide {
-    transition: transform 0.5s ease, opacity 0.5s ease;
-    transform-style: preserve-3d;
-    perspective: 1000px;
-  }
-  
-  /* Center slide: flat and fully opaque */
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.slick-center {
+  transform: perspective(1000px) translateZ(0) rotateY(0deg);
+  opacity: 1;
+  z-index: 2;
+}
+
+.slick-slide:not(.slick-center) {
+  transform: perspective(1000px) translateZ(-100px) rotateY(15deg);
+  opacity: 0.7;
+  z-index: 1;
+}
+
+/* Card hover effect */
+.project-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 1rem;
+}
+.project-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.project-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .slick-center {
     transform: perspective(1000px) translateZ(0) rotateY(0deg);
-    opacity: 1;
-    z-index: 2;
   }
-  
-  /* Other slides: pushed back and rotated slightly for a 3D effect */
   .slick-slide:not(.slick-center) {
-    transform: perspective(1000px) translateZ(-100px) rotateY(15deg);
-    opacity: 0.7;
-    z-index: 1;
+    transform: perspective(1000px) translateZ(-50px) rotateY(10deg);
   }
-  
-  /* Card hover effect: lift up, scale, and add a shadow */
-  .project-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .project-card:hover {
-    transform: translateY(-10px) scale(1.05);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Optional: Style for project images (if needed) */
-  .project-image {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-  }
-  
+}

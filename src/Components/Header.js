@@ -1,16 +1,16 @@
+// Header.js
 import React from 'react';
-
 
 function Header() {
   return (
-    <header>
-      <div className="container">
-        <h1>Susie Hu</h1>
-        <nav>
-          <ul>
+    <header role="banner">
+      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 0' }}>
+        <h1 style={{ margin: 0 }}>Susie Hu</h1>
+        <nav aria-label="Main Navigation">
+          <ul style={{ listStyle: 'none', display: 'flex', gap: '0.5rem', margin: 0, padding: 0 }}>
             <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#Skills">Skills</a></li>
+            <li><a href="#Portfolio">Featured Projects</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
         </nav>

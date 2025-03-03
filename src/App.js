@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Header from './Components/Header';
 import About from './Components/About';
-import SkillsBubble from './Components/SkillsBubble';
+import SkillsSectionTabs from './Components/SkillsSectionTabs';
 import Portfolio from './Components/Portfolio';
 import Contact from './Components/Contact';
 import Footer from './Components/Footer';
@@ -13,7 +13,7 @@ function App() {
       <Header />
       <main>
         <About />
-        <SkillsBubble />
+        <SkillsSectionTabs />
         <Portfolio />
         <Contact />
       </main>

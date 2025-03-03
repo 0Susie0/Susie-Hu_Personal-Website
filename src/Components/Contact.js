@@ -1,29 +1,41 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function Contact() {
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = "https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js";
+    script.async = true;
+    script.onload = () => window.AOS.init();
+    document.body.appendChild(script);
+  }, []);
+
   return (
     <section id="contact" className="section">
       <div className="container">
         <h2>Contact Me</h2>
-        <div className="social-icons">
-          <a href="https://www.linkedin.com/in/your-linkedin" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+        <a href="/resume.pdf" download className="download-resume" data-aos="fade-up">Download Resume</a>
+        <button class="bg-blue-50 hover:bg-blue-300 ...">Download CV</button>
+        <p>
+          Thank you for visiting my website! You can reach me via email at{' '}
+          <a href="SusieHu98@outlook.com">SusieHu98@outlook.com</a> or call at{' '}
+          <a href="tel:+61 483 215 631">+61 483 215 631</a>.
+        </p>
+        <div className="social-icons" data-aos="fade-up">
+          <a href="https://www.linkedin.com/in/susie-hu-101b5b246/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
             <i className="fab fa-linkedin-in"></i>
           </a>
-          <a href="https://github.com/your-github" target="_blank" rel="noreferrer" aria-label="GitHub">
+          <a href="https://github.com/0Susie0" target="_blank" rel="noreferrer" aria-label="GitHub">
             <i className="fab fa-github"></i>
           </a>
-          <a href="https://www.facebook.com/your-facebook" target="_blank" rel="noreferrer" aria-label="Facebook">
+          <a href="https://www.facebook.com/xinyue.hu.7798" target="_blank" rel="noreferrer" aria-label="Facebook">
             <i className="fab fa-facebook-f"></i>
           </a>
-          <a href="https://www.instagram.com/your-instagram" target="_blank" rel="noreferrer" aria-label="Instagram">
+          <a href="https://www.instagram.com/susie_hu02/" target="_blank" rel="noreferrer" aria-label="Instagram">
             <i className="fab fa-instagram"></i>
           </a>
         </div>
-        <p>
-          Thank you for visiting my website! You can reach me via email at{' '}
-          <a href="mailto:your.email@example.com">your.email@example.com</a> or call at{' '}
-          <a href="tel:+1234567890">+1 (234) 567-890</a>.
-        </p>
+        
       </div>
     </section>
   );

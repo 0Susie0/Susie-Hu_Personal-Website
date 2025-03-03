@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-import './Portfolio3D.css';  // Custom CSS for 3D and hover effects
+import './Portfolio3D.css';
 
 const defaultProjects = [
   { id: 1, image: '/FoodGI.jpg', title: 'Project 1', description: 'Description for Project 1' },
@@ -20,12 +20,12 @@ function Portfolio({ projects = defaultProjects }) {
   const settings = {
     infinite: true,
     centerMode: true,
-    centerPadding: '20%',  // Adjust to control how much of adjacent slides is visible
+    centerPadding: '20%',
     slidesToShow: 1,
     autoplay: true,
     autoplaySpeed: 3000,
     pauseOnHover: true,
-    arrows: false,         // Using custom hover overlays
+    arrows: false,
     dots: false,
     cssEase: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)',
   };
@@ -49,7 +49,7 @@ function Portfolio({ projects = defaultProjects }) {
   };
 
   return (
-    <section id="portfolio" className="section">
+    <section id="portfolio" className="section" style={{ padding: '2rem 0' }}>
       <div className="container">
         <h2>Portfolio</h2>
         <div style={{ position: 'relative' }}>
@@ -62,6 +62,7 @@ function Portfolio({ projects = defaultProjects }) {
               </div>
             ))}
           </Slider>
+          {/* Left navigation overlay */}
           <div 
             className="nav-left" 
             style={{
@@ -76,6 +77,7 @@ function Portfolio({ projects = defaultProjects }) {
             onMouseEnter={handleLeftMouseEnter}
             onMouseLeave={handleLeftMouseLeave}
           ></div>
+          {/* Right navigation overlay */}
           <div 
             className="nav-right" 
             style={{
