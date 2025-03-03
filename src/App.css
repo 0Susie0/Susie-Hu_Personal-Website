@@ -9,7 +9,7 @@
   /* Use a background image of a lake – replace 'lake.jpg' with your image file */
   --background-image: url('lake.jpg');
   --text-color: #333;
-  --transparent-white: rgba(255, 255, 255, 0.77); /* Semi-transparent white */
+  --transparent-white: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
 }
 
 * {
@@ -148,7 +148,7 @@ header nav ul li a:hover {
 .project-image {
   width: 100%;
   max-width: 650px; 
-  height: auto;        /* let height adjust automatically */
+  height: auto;        
   aspect-ratio: 3 / 2; /* 3:2 aspect ratio */
   border-radius: 8px;
   display: block;

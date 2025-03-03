@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import DownloadCVButton from "./DownloadCVButton";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function Contact() {
@@ -14,8 +15,7 @@ function Contact() {
     <section id="contact" className="section">
       <div className="container">
         <h2>Contact Me</h2>
-        <a href="/resume.pdf" download className="download-resume" data-aos="fade-up">Download Resume</a>
-        <button class="bg-blue-50 hover:bg-blue-300 ...">Download CV</button>
+        <DownloadCVButton />
         <p>
           Thank you for visiting my website! You can reach me via email at{' '}
           <a href="SusieHu98@outlook.com">SusieHu98@outlook.com</a> or call at{' '}
