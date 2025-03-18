@@ -6,6 +6,7 @@ import SkillsSectionTabs from './Components/SkillsSectionTabs';
 import Portfolio from './Components/Portfolio';
 import Contact from './Components/Contact';
 import Footer from './Components/Footer';
+import Timeline from './Components/TimeLine';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <About />
         <SkillsSectionTabs />
         <Portfolio />
+        <Timeline />
         <Contact />
       </main>
       <Footer />

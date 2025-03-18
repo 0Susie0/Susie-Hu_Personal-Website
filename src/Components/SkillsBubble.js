@@ -1,21 +1,22 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-const brandShades = [
-  "#394563", 
-  "#3F5B85", 
-  "#5C81AA", 
-  "#5E8EB4", 
-  "#8ABAD0", 
-  "#B0CED8" 
+// Focused blue palette for lake theme
+const blueShades = [
+  "#104c91",  // Deep blue
+  "#1a6fc7",  // Medium blue
+  "#4d94db",  // Blue
+  "#6c9dc6",  // Light blue
+  "#add8e6",  // Light sky blue
+  "#d3e9f6"   // Pale blue
 ];
 
 function getColorForLevel(level) {
   const minLevel = 70, maxLevel = 95;
-  const colorCount = brandShades.length;
+  const colorCount = blueShades.length;
   const ratio = 1 - (level - minLevel) / (maxLevel - minLevel);
   const index = Math.round(ratio * (colorCount - 1));
-  return brandShades[Math.max(0, Math.min(index, colorCount - 1))];
+  return blueShades[Math.max(0, Math.min(index, colorCount - 1))];
 }
 
 const skills = [
@@ -32,11 +33,11 @@ const skills = [
 ];
 
 const Sparkles = ({ bubbleSize }) => {
-  const sparkleCount = 3;
+  const sparkleCount = 4;
   const sparkles = Array.from({ length: sparkleCount }, () => ({
     x: Math.random() * bubbleSize - bubbleSize / 2,
     y: Math.random() * bubbleSize - bubbleSize / 2,
-    size: Math.random() * 4 + 2,
+    size: Math.random() * 3 + 2,
     delay: Math.random(),
   }));
   return sparkles.map((s, idx) => (
@@ -57,9 +58,10 @@ const Sparkles = ({ bubbleSize }) => {
         width: `${s.size}px`,
         height: `${s.size}px`,
         borderRadius: "50%",
-        background: "white",
+        background: "rgba(255, 255, 255, 0.9)",
         pointerEvents: "none",
         filter: "blur(1px)",
+        boxShadow: "0 0 3px rgba(255, 255, 255, 0.8)",
       }}
     />
   ));
@@ -70,25 +72,35 @@ function BubbleItem({ skill, angle, radius }) {
   const minSize = 60, maxSize = 90;
   const bubbleSize = ((skill.level - 70) / 25) * (maxSize - minSize) + minSize;
   const bubbleColor = getColorForLevel(skill.level);
-  const textColor = "#FFFFFF";
+  const textColor = "white";
   const x = radius * Math.cos(angle);
   const y = radius * Math.sin(angle);
 
   return (
     <motion.div
-      initial={{ x, y }}
-      animate={{ y: [y, y - 5, y] }}
+      initial={{ x, y, opacity: 0 }}
+      animate={{ 
+        x, 
+        y, 
+        y: [y, y - 6, y], 
+        opacity: 1 
+      }}
       transition={{
-        duration: 3 + Math.random() * 2,
-        repeat: Infinity,
-        ease: "easeInOut",
+        y: {
+          duration: 3 + Math.random() * 2,
+          repeat: Infinity,
+          ease: "easeInOut",
+        },
+        opacity: {
+          duration: 0.8,
+        }
       }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
       whileHover={{
-        scale: 1.1,
+        scale: 1.08,
         backgroundColor: bubbleColor,
-        boxShadow: `0 0 20px 6px rgba(255,255,255,1)`,
+        boxShadow: `0 0 15px 5px ${bubbleColor}60`,
         transition: { duration: 0.2, ease: "easeOut" },
       }}
       style={{
@@ -99,8 +111,9 @@ function BubbleItem({ skill, angle, radius }) {
         width: `${bubbleSize}px`,
         height: `${bubbleSize}px`,
         borderRadius: "50%",
-        background: "transparent",
-        border: `3px solid ${bubbleColor}`,
+        background: `${bubbleColor}60`,
+        border: `2px solid ${bubbleColor}`,
+        backdropFilter: "blur(5px)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -109,27 +122,42 @@ function BubbleItem({ skill, angle, radius }) {
       }}
     >
       {hovered && <Sparkles bubbleSize={bubbleSize} />}
-      <motion.span
-        whileHover={{
-          textShadow: "0 0 12px rgba(255,255,255,0.8)",
-          transition: { duration: 0.15, ease: "easeOut" },
-        }}
-        style={{
-          color: textColor,
-          fontWeight: "bold",
-          pointerEvents: "none",
-          textAlign: "center",
-          textShadow: "0 0 2px rgba(0,0,0,0.4)",
-        }}
+      <motion.div
+        className="flex flex-col items-center justify-center"
       >
-        {skill.name}
-      </motion.span>
+        <motion.span
+          whileHover={{
+            textShadow: "0 0 10px rgba(255,255,255,0.8)",
+            transition: { duration: 0.15, ease: "easeOut" },
+          }}
+          style={{
+            color: textColor,
+            fontWeight: "bold",
+            fontSize: bubbleSize > 75 ? "0.95rem" : "0.85rem",
+            pointerEvents: "none",
+            textAlign: "center",
+            textShadow: "0 1px 2px rgba(0,0,0,0.5)",
+          }}
+        >
+          {skill.name}
+        </motion.span>
+        <motion.span
+          style={{
+            fontSize: "0.7rem",
+            color: "rgba(255,255,255,1)",
+            marginTop: "2px",
+            textShadow: "0 1px 2px rgba(0,0,0,0.4)",
+          }}
+        >
+          {skill.level}%
+        </motion.span>
+      </motion.div>
     </motion.div>
   );
 }
 
 function CenterBubble({ label, size = 110 }) {
-  const bubbleColor = brandShades[0];
+  const bubbleColor = "#104c91";
   const textColor = "#FFFFFF";
   return (
     <motion.div
@@ -141,18 +169,19 @@ function CenterBubble({ label, size = 110 }) {
         width: `${size}px`,
         height: `${size}px`,
         borderRadius: "50%",
-        background: bubbleColor,
+        background: "linear-gradient(135deg, #104c91, #4d94db)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         color: textColor,
         fontWeight: "bold",
         fontSize: "1.1rem",
-        boxShadow: `0 0 30px 10px rgba(0,0,0,0.2)`,
+        boxShadow: `0 4px 20px rgba(16, 76, 145, 0.4)`,
+        textShadow: "0 1px 2px rgba(0,0,0,0.4)",
       }}
-      animate={{ y: [0, -5, 0] }}
+      animate={{ y: [0, -6, 0] }}
       transition={{
-        duration: 3,
+        duration: 4,
         repeat: Infinity,
         ease: "easeInOut",
       }}
@@ -187,32 +216,27 @@ export default function SkillCluster() {
   const angleStep = (2 * Math.PI) / skills.length;
 
   return (
-    <section id="skills" className="section" style={{ textAlign: "center", padding: '2rem 0' }}>
-      <h2>Skills</h2>
-      <div
-        ref={containerRef}
-        style={{
-          margin: "0 auto",
-          position: "relative",
-          width: "100%",
-          maxWidth: "800px",
-          minHeight: "500px",
-          overflow: "hidden",
-        }}
-      >
-        <CenterBubble label="Technical" size={120} />
-        {skills.map((skill, i) => {
-          const angle = i * angleStep;
-          return (
-            <BubbleItem
-              key={skill.name}
-              skill={skill}
-              angle={angle}
-              radius={radius}
-            />
-          );
-        })}
-      </div>
-    </section>
+    <div 
+      ref={containerRef}
+      style={{
+        position: "relative",
+        width: "100%",
+        height: "400px",
+        overflow: "hidden",
+      }}
+    >
+      <CenterBubble label="Technical Proficiency" size={120} />
+      {skills.map((skill, i) => {
+        const angle = i * angleStep;
+        return (
+          <BubbleItem
+            key={skill.name}
+            skill={skill}
+            angle={angle}
+            radius={radius}
+          />
+        );
+      })}
+    </div>
   );
 }

@@ -8,8 +8,8 @@ const defaultProjects = [
   { id: 1, image: '/FoodGI.jpg', title: 'Project 1', description: 'Description for Project 1' },
   { id: 2, image: '/Personalised Nutrition.jpg', title: 'Project 2', description: 'Description for Project 2' },
   { id: 3, image: '/WeTok.png', title: 'Project 3', description: 'Description for Project 3' },
-  { id: 4, image: '/Wandering Satellite.jpg', title: 'Project 4', description: 'Description for Project 4' },
-  { id: 5, image: '/Perish.jpg', title: 'Project 5', description: 'Description for Project 5' },
+  { id: 4, image: '/Wandering Satellite.png', title: 'Project 4', description: 'Description for Project 4' },
+  { id: 5, image: '/Perish.png', title: 'Project 5', description: 'Description for Project 5' },
 ];
 
 function Portfolio({ projects = defaultProjects }) {
