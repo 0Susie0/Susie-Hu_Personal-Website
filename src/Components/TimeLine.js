@@ -20,43 +20,43 @@ function EducationIconTimeline() {
   const milestones = [
     {
       number: '01',
-      title: 'Pingxiang High School',
-      subtitle: 'Art Student (History & Geography)',
-      description: 'Focused on art while developing a strong interest in History and Geography, building a broad cultural perspective.',
+      title: 'Australian National University',
+      subtitle: 'Master of Computing',
+      description: 'Completed the WeTok (a social app supporting vulnerable groups) project with high distinction, and excelled in Sound & Music Computing.',
       color: '#1a6fc7',
-      icon: '/PXHS.png',
-      year: '2013-2016',
-      achievements: ['Art Excellence Award', 'History Competition Winner']
+      icon: '/ANU.png',
+      year: '2021-2023',
+      achievements: ['HD in Software Construction Project', 'Excellent in Sound & Music Computing']
     },
     {
       number: '02',
-      title: "Jiangxi Normal University",
-      subtitle: 'Bachelor of Software Engineering (Big Data Technology)',
-      description: 'Learned large-scale data processing, algorithms, and advanced software engineering. Participated in various coding competitions.',
-      color: '#4d94db',
-      icon: '/JXNU.png',
-      year: '2016-2020',
-      achievements: ["Dean's List", 'Technical Project Excellence']
-    },
-    {
-      number: '03',
       title: 'Awards & Achievements',
       subtitle: 'National Scholarship, Academic Excellence',
       description: 'Earned second prize in the 9th Blue Bridge Cup National Software & IT competition for the Yunxue Online Math Learning Platform.',
-      color: '#3a7ca5',
+      color: '#4d94db',
       icon: '/BlueCup.png',
       year: '2017-2020',
       achievements: ['National Scholarship', 'Blue Bridge Cup Second Prize']
     },
     {
+      number: '03',
+      title: "Jiangxi Normal University",
+      subtitle: 'Bachelor of Software Engineering (Big Data Technology)',
+      description: 'Learned large-scale data processing, algorithms, and advanced software engineering. Participated in various coding competitions.',
+      color: '#3a7ca5',
+      icon: '/JXNU.png',
+      year: '2016-2020',
+      achievements: ["Dean's List", 'Technical Project Excellence']
+    },
+    {
       number: '04',
-      title: 'Australian National University',
-      subtitle: 'Master of Computing',
-      description: 'Completed the WeTok (a social app supporting vulnerable groups) project with high distinction, and excelled in Sound & Music Computing.',
+      title: 'Pingxiang High School',
+      subtitle: 'Art Student (History & Geography)',
+      description: 'Focused on art while developing a strong interest in History and Geography, building a broad cultural perspective.',
       color: '#0d3b76',
-      icon: '/ANU.png',
-      year: '2021-2023',
-      achievements: ['High Distinction', 'Research Excellence']
+      icon: '/PXHS.png',
+      year: '2013-2016',
+      achievements: ['Art Excellence Award', 'History Competition Winner']
     },
   ];
 
@@ -71,7 +71,6 @@ function EducationIconTimeline() {
   return (
     <section className="section" id="education-timeline">
       <h2>Education & Experience</h2>
-      <p className="section-subtitle">My academic journey and key achievements</p>
 
       <div className="vertical-line" aria-hidden="true" />
 
