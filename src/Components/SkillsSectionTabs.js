@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import SkillsBubble from "./SkillsBubble";
 import CompositionDonutChart from "./CompositionDonutChart";
-import SkillsList from "./SkillsList";
 
 // Simplified blue palette for lake theme
 const tabStyles = {
