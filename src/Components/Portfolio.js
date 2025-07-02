@@ -5,11 +5,11 @@ import "slick-carousel/slick/slick-theme.css";
 import './Portfolio3D.css';
 
 const defaultProjects = [
-  { id: 1, image: '/FoodGI.jpg', title: 'Project 1', description: 'Description for Project 1' },
-  { id: 2, image: '/Personalised Nutrition.jpg', title: 'Project 2', description: 'Description for Project 2' },
-  { id: 3, image: '/WeTok.png', title: 'Project 3', description: 'Description for Project 3' },
-  { id: 4, image: '/Wandering Satellite.png', title: 'Project 4', description: 'Description for Project 4' },
-  { id: 5, image: '/Perish.png', title: 'Project 5', description: 'Description for Project 5' },
+  { id: 1, image: '/FoodGI.jpg', title: 'GI Tracker', description: 'A food recognisation and recipe generator for diabetic patients' },
+  { id: 2, image: '/Personalised Nutrition.jpg', title: 'Personalised Nutrition', description: 'A personalised health management platform' },
+  { id: 3, image: '/WeTok.png', title: 'WeTok', description: 'Wetok is a social media app specifically aimed at person with a strong personality.' },
+  { id: 4, image: '/Wandering Satellite.png', title: 'Wandering Satellite', description: 'This music tells a story of a satellite which lost connection with earth wandered in the space. ' },
+  { id: 5, image: '/Perish.png', title: 'Perish', description: 'Sound and Music Computing Project' },
 ];
 
 function Portfolio({ projects = defaultProjects }) {
