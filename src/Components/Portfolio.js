@@ -5,11 +5,11 @@ import "slick-carousel/slick/slick-theme.css";
 import './Portfolio3D.css';
 
 const defaultProjects = [
-  { id: 1, image: '/FoodGI.jpg', title: 'GI Tracker', description: 'A food recognisation and recipe generator for diabetic patients' },
-  { id: 2, image: '/Personalised Nutrition.jpg', title: 'Personalised Nutrition', description: 'A personalised health management platform' },
-  { id: 3, image: '/WeTok.png', title: 'WeTok', description: 'Wetok is a social media app specifically aimed at person with a strong personality.' },
-  { id: 4, image: '/Wandering Satellite.png', title: 'Wandering Satellite', description: 'This music tells a story of a satellite which lost connection with earth wandered in the space. ' },
-  { id: 5, image: '/Perish.png', title: 'Perish', description: 'Sound and Music Computing Project' },
+  { id: 1, image: '/FoodGI.jpg', title: 'GI Tracker', description: 'A food recognisation and recipe generator for diabetic patients', link: 'https://github.com/0Susie0/GI-Tracker' },
+  { id: 2, image: '/Personalised Nutrition.jpg', title: 'Personalised Nutrition', description: 'A personalised health management platform', link: 'https://github.com/0Susie0/Personalised-Nutrition' },
+  { id: 3, image: '/WeTok.png', title: 'WeTok', description: 'Wetok is a social media app specifically aimed at person with a strong personality.', link: 'https://github.com/0Susie0/WeTok' },
+  { id: 4, image: '/Wandering Satellite.png', title: 'Wandering Satellite', description: 'This music tells a story of a satellite which lost connection with earth wandered in the space. ', link: 'https://github.com/0Susie0/Wandering-Satellite' },
+  { id: 5, image: '/Perish.png', title: 'Perish', description: 'Sound and Music Computing Project', link: 'https://github.com/0Susie0/Perish' },
 ];
 
 function Portfolio({ projects = defaultProjects }) {
@@ -52,13 +52,15 @@ function Portfolio({ projects = defaultProjects }) {
     <section id="portfolio" className="section" style={{ padding: '2rem 0' }}>
       <div className="container">
         <h2>Portfolio</h2>
-        <div style={{ position: 'relative' }}>
+        <div className="slider-wrapper" style={{ position: 'relative' }}>
           <Slider ref={sliderRef} {...settings}>
             {projects.map(project => (
               <div key={project.id} className="project-card">
-                <img src={project.image} alt={project.title} className="project-image" />
-                <h3>{project.title}</h3>
-                <p>{project.description}</p>
+                <a href={project.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <img src={project.image} alt={project.title} className="project-image" />
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+                </a>
               </div>
             ))}
           </Slider>
