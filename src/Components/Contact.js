@@ -18,8 +18,8 @@ function Contact() {
         <DownloadCVButton />
         <p>
           Thank you for visiting my website! You can reach me via email at{' '}
-          <a href="SusieHu98@outlook.com">SusieHu98@outlook.com</a> or call at{' '}
-          <a href="tel:+61 483 215 631">+61 483 215 631</a>.
+          <a href="mailto:SusieHu98@outlook.com"><strong>SusieHu98@outlook.com</strong></a> or call at{' '}
+          <a href="tel:+61 483 215 631"><strong>+61 483 215 631</strong></a>.
         </p>
         <div className="social-icons" data-aos="fade-up">
           <a href="https://www.linkedin.com/in/susie-hu-101b5b246/" target="_blank" rel="noreferrer" aria-label="LinkedIn">

@@ -1,5 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Slider from 'react-slick';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import './Portfolio3D.css';
@@ -12,10 +13,54 @@ const defaultProjects = [
   { id: 5, image: '/Perish.png', title: 'Perish', description: 'Sound and Music Computing Project', link: 'https://github.com/0Susie0/Perish' },
 ];
 
+function ProjectCard({ project }) {
+  return (
+    <div className="project-card" style={{ textAlign: 'center' }}>
+      <a href={project.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <img src={project.image} alt={project.title} className="project-image" />
+        <h3 style={{ textAlign: 'center' }}>{project.title}</h3>
+        <p style={{ textAlign: 'center' }}>{project.description}</p>
+      </a>
+    </div>
+  );
+}
+
+function NavOverlay({ direction, onClick, onHover, isHovered, onLeave }) {
+  const isLeft = direction === 'left';
+  const ArrowIcon = isLeft ? FaChevronLeft : FaChevronRight;
+  return (
+    <div
+      className={`nav-${direction}`}
+      style={{
+        position: 'absolute',
+        top: 0,
+        [isLeft ? 'left' : 'right']: 0,
+        width: '20%',
+        height: '100%',
+        cursor: 'pointer',
+        zIndex: 10,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: isLeft ? 'flex-start' : 'flex-end',
+      }}
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+      aria-label={isLeft ? 'Previous project' : 'Next project'}
+      onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') onClick(); }}
+    >
+      {isHovered && (
+        <ArrowIcon size={48} style={{ color: '#104c91', opacity: 0.85, [isLeft ? 'marginLeft' : 'marginRight']: '10px', background: 'rgba(255,255,255,0.7)', borderRadius: '50%', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }} />
+      )}
+    </div>
+  );
+}
+
 function Portfolio({ projects = defaultProjects }) {
   const sliderRef = useRef(null);
-  const leftTimerRef = useRef(null);
-  const rightTimerRef = useRef(null);
+  const [hoveredNav, setHoveredNav] = useState(null); // 'left', 'right', or null
 
   const settings = {
     infinite: true,
@@ -30,24 +75,6 @@ function Portfolio({ projects = defaultProjects }) {
     cssEase: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)',
   };
 
-  const handleLeftMouseEnter = () => {
-    leftTimerRef.current = setTimeout(() => {
-      sliderRef.current.slickPrev();
-    }, 1000);
-  };
-  const handleLeftMouseLeave = () => {
-    if (leftTimerRef.current) clearTimeout(leftTimerRef.current);
-  };
-
-  const handleRightMouseEnter = () => {
-    rightTimerRef.current = setTimeout(() => {
-      sliderRef.current.slickNext();
-    }, 1000);
-  };
-  const handleRightMouseLeave = () => {
-    if (rightTimerRef.current) clearTimeout(rightTimerRef.current);
-  };
-
   return (
     <section id="portfolio" className="section" style={{ padding: '2rem 0' }}>
       <div className="container">
@@ -55,45 +82,23 @@ function Portfolio({ projects = defaultProjects }) {
         <div className="slider-wrapper" style={{ position: 'relative' }}>
           <Slider ref={sliderRef} {...settings}>
             {projects.map(project => (
-              <div key={project.id} className="project-card">
-                <a href={project.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <img src={project.image} alt={project.title} className="project-image" />
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                </a>
-              </div>
+              <ProjectCard key={project.id} project={project} />
             ))}
           </Slider>
-          {/* Left navigation overlay */}
-          <div 
-            className="nav-left" 
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '20%',
-              height: '100%',
-              cursor: 'pointer',
-              zIndex: 10,
-            }}
-            onMouseEnter={handleLeftMouseEnter}
-            onMouseLeave={handleLeftMouseLeave}
-          ></div>
-          {/* Right navigation overlay */}
-          <div 
-            className="nav-right" 
-            style={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              width: '20%',
-              height: '100%',
-              cursor: 'pointer',
-              zIndex: 10,
-            }}
-            onMouseEnter={handleRightMouseEnter}
-            onMouseLeave={handleRightMouseLeave}
-          ></div>
+          <NavOverlay
+            direction="left"
+            onClick={() => sliderRef.current.slickPrev()}
+            onHover={() => setHoveredNav('left')}
+            onLeave={() => setHoveredNav(null)}
+            isHovered={hoveredNav === 'left'}
+          />
+          <NavOverlay
+            direction="right"
+            onClick={() => sliderRef.current.slickNext()}
+            onHover={() => setHoveredNav('right')}
+            onLeave={() => setHoveredNav(null)}
+            isHovered={hoveredNav === 'right'}
+          />
         </div>
       </div>
     </section>
