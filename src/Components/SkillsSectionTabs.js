@@ -60,6 +60,16 @@ const tabStyles = {
 export default function SkillsSectionTabs() {
   const [activeTab, setActiveTab] = useState("technical");
 
+  const flexWrapStyle = {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: "2rem",
+    alignItems: "flex-start",
+    marginTop: "2rem",
+    width: "100%",
+    };
+
   return (
     <section id="skills" className="section" style={{ padding: "3rem 0", textAlign: "center" }}>
       
@@ -82,17 +92,10 @@ export default function SkillsSectionTabs() {
         </button>
       </div>
 
+
       {/* Tab Content */}
       {activeTab === "technical" && (
-        <div style={{ 
-          display: "flex", 
-          flexWrap: "wrap", 
-          justifyContent: "center", 
-          gap: "2rem", 
-          alignItems: "flex-start", 
-          marginTop: "2rem", 
-          width: "100%" 
-        }}>
+          <div style={flexWrapStyle}>
           <SkillsContainer>
             <SkillsBubble />
           </SkillsContainer>
@@ -100,30 +103,10 @@ export default function SkillsSectionTabs() {
       )}
 
       {activeTab === "composition" && (
-        <div style={{ 
-          marginTop: "2rem", 
-          padding: "1rem",
-          background: "rgba(255, 255, 255, 0.7)",
-          borderRadius: "12px",
-          boxShadow: "0 8px 20px rgba(16, 76, 145, 0.08)",
-          backdropFilter: "blur(8px)",
-          maxWidth: "750px",
-          margin: "1rem auto",
-          border: "1px solid rgba(255, 255, 255, 0.5)",
-        }}>
-          <p style={{ 
-            fontSize: "1.1rem", 
-            lineHeight: "1.5", 
-            color: "#34495e",
-            marginBottom: "0.5rem",
-            maxWidth: "700px",
-            margin: "0 auto 0.5rem auto",
-          }}>
-            As a versatile individual, I not only have a solid technical foundation but also excel in music, sports, and languages, demonstrating exceptional talents and passion in these areas.
-          </p>
-          <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+        <div style={flexWrapStyle}>
+          <SkillsContainer>
             <CompositionDonutChart />
-          </div>
+          </SkillsContainer>
         </div>
       )}
     </section>

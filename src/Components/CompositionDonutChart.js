@@ -3,11 +3,11 @@ import { PieChart, Pie, Sector, Cell, Tooltip, ResponsiveContainer } from 'recha
 
 // Define talent categories and their values
 const data = [
-  { name: 'Piano Playing', value: 25, icon: '🎹' },
+  { name: 'Keyboardist', value: 25, icon: '🎹' },
   { name: 'Vocal Performance', value: 20, icon: '🎤' },
-  { name: 'Table Tennis Enthusiast', value: 15, icon: '🏓' },
-  { name: 'English-Chinese Bilingual', value: 10, icon: '🌐' },
-  { name: 'Christian', value: 30, icon: '✝️' },];
+  { name: 'Table Tennis Amateur', value: 20, icon: '🏓' },
+  { name: 'English-Chinese Bilingual', value: 20, icon: '🌐' },
+  { name: 'History Enthusiast', value: 15, icon: '📖' },];
 
 // Focused blue palette for lake theme
 const COLORS = [
