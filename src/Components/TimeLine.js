@@ -3,10 +3,54 @@ import AOS from 'aos';                // 1) Install with `npm install aos`
 import 'aos/dist/aos.css';            // 2) Import AOS core styles
 import './EducationTimeline.css';  // 3) Our custom CSS
 
+// Each "milestone" in my eaducation timeline
+const milestones = [
+  {
+    number: '01',
+    title: 'Australian National University',
+    subtitle: 'Master of Computing',
+    description: 'Completed the WeTok (a social app supporting vulnerable groups) project with high distinction, and excelled in Sound & Music Computing.',
+    color: '#1a6fc7',
+    icon: '/ANU.png',
+    year: '2021-2023',
+    achievements: ['HD in Software Construction Project', 'Excellent in Sound & Music Computing']
+  },
+  {
+    number: '02',
+    title: 'Awards & Achievements',
+    subtitle: 'National Scholarship, Academic Excellence',
+    description: 'Earned second prize in the 9th Blue Bridge Cup National Software & IT competition for the Yunxue Online Math Learning Platform.',
+    color: '#4d94db',
+    icon: '/BlueCup.png',
+    year: '2017-2020',
+    achievements: ['National Scholarship', 'Blue Bridge Cup Second Prize']
+  },
+  {
+    number: '03',
+    title: "Jiangxi Normal University",
+    subtitle: 'Bachelor of Software Engineering (Big Data Technology)',
+    description: 'Learned large-scale data processing, algorithms, and advanced software engineering. Participated in various coding competitions.',
+    color: '#3a7ca5',
+    icon: '/JXNU.png',
+    year: '2016-2020',
+    achievements: ["Dean's List", 'Technical Project Excellence']
+  },
+  {
+    number: '04',
+    title: 'Pingxiang High School',
+    subtitle: 'Art Student (History & Geography)',
+    description: 'Focused on art while developing a strong interest in History and Geography, building a broad cultural perspective.',
+    color: '#0d3b76',
+    icon: '/PXHS.png',
+    year: '2013-2016',
+    achievements: ['Art Excellence Award', 'History Competition Winner']
+  },
+];
+
 function EducationIconTimeline() {
   const [activeIndex, setActiveIndex] = useState(null);
 
-  // Initialize AOS once when the component mounts
+  // 2. Then use useEffect hooks
   useEffect(() => {
     AOS.init({ 
       duration: 800,
@@ -16,49 +60,9 @@ function EducationIconTimeline() {
     });
   }, []);
 
-  // Each "milestone" in your education timeline
-  const milestones = [
-    {
-      number: '01',
-      title: 'Australian National University',
-      subtitle: 'Master of Computing',
-      description: 'Completed the WeTok (a social app supporting vulnerable groups) project with high distinction, and excelled in Sound & Music Computing.',
-      color: '#1a6fc7',
-      icon: '/ANU.png',
-      year: '2021-2023',
-      achievements: ['HD in Software Construction Project', 'Excellent in Sound & Music Computing']
-    },
-    {
-      number: '02',
-      title: 'Awards & Achievements',
-      subtitle: 'National Scholarship, Academic Excellence',
-      description: 'Earned second prize in the 9th Blue Bridge Cup National Software & IT competition for the Yunxue Online Math Learning Platform.',
-      color: '#4d94db',
-      icon: '/BlueCup.png',
-      year: '2017-2020',
-      achievements: ['National Scholarship', 'Blue Bridge Cup Second Prize']
-    },
-    {
-      number: '03',
-      title: "Jiangxi Normal University",
-      subtitle: 'Bachelor of Software Engineering (Big Data Technology)',
-      description: 'Learned large-scale data processing, algorithms, and advanced software engineering. Participated in various coding competitions.',
-      color: '#3a7ca5',
-      icon: '/JXNU.png',
-      year: '2016-2020',
-      achievements: ["Dean's List", 'Technical Project Excellence']
-    },
-    {
-      number: '04',
-      title: 'Pingxiang High School',
-      subtitle: 'Art Student (History & Geography)',
-      description: 'Focused on art while developing a strong interest in History and Geography, building a broad cultural perspective.',
-      color: '#0d3b76',
-      icon: '/PXHS.png',
-      year: '2013-2016',
-      achievements: ['Art Excellence Award', 'History Competition Winner']
-    },
-  ];
+  useEffect(() => {
+    AOS.refresh();
+  }, [milestones]);
 
   const handleItemFocus = (index) => {
     setActiveIndex(index);
@@ -79,7 +83,7 @@ function EducationIconTimeline() {
           key={index} 
           className={`timeline-item ${activeIndex === index ? 'active-item' : ''}`}
           data-aos="fade-up"
-          data-aos-delay={index * 100}
+          data-aos-delay={index === 0 ? 0 : index * 100}
           onMouseEnter={() => handleItemFocus(index)}
           onMouseLeave={handleItemBlur}
           onFocus={() => handleItemFocus(index)}

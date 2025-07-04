@@ -1,16 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* Define color variables and base styles */
+
+/* =====================
+   CSS Variables
+   ===================== */
 :root {
   --primary-color: #2c3e50;
   --primary-light: #34495e;
   --accent-blue: #3498db;
-  /* Use a background image of a lake – replace 'lake.jpg' with your image file */
   --background-image: url('lake.jpg');
   --text-color: #34495e;
-  --transparent-white: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
-  --transparent-dark: rgba(44, 62, 80, 0.8); /* Semi-transparent dark blue */
+  --transparent-white: rgba(255, 255, 255, 0.85);
+  --transparent-dark: rgba(44, 62, 80, 0.8);
+  --header-footer-padding: 1rem 0;
+  --section-padding: 4rem 0;
+  --border-radius: 16px;
 }
 
 * {
@@ -21,77 +26,104 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  /* Set the background to the lake image with full cover */
   background: var(--background-image) no-repeat center center fixed;
   background-size: cover;
   color: var(--text-color);
   line-height: 1.6;
 }
 
-/* Container for consistent width and centering */
+/* =====================
+   Container Utility
+   ===================== */
 .container {
   width: 90%;
   max-width: 1200px;
   margin: auto;
 }
 
-/* Header Styles */
-header {
-  background: var(--transparent-dark);
-  padding: 1rem 0;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+/* =====================
+   Header & Footer 
+   ===================== */
+.header-footer-container {
+  background: rgba(34, 34, 34, 0.58);
+  color: #fff;
+  width: 100%;
+  padding: var(--header-footer-padding);
+  box-sizing: border-box;
+  position: relative;
+  z-index: 10;
   backdrop-filter: blur(10px);
 }
 
-header .container {
+.header-footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 2rem;
 }
 
-header h1 {
-  font-size: 1.8rem;
-  color: #fff;
-  font-weight: 600;
+.header-title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
-header nav ul {
+.header-nav-list {
   list-style: none;
   display: flex;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
 }
 
-header nav ul li {
-  margin-left: 1.5rem;
-}
-
-header nav ul li a {
+.header-nav-list li a {
   color: #fff;
   text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s;
-  padding: 0.5rem 0.8rem;
+  padding: 0.5rem 1rem;
   border-radius: 4px;
+  transition: background 0.2s;
 }
 
-header nav ul li a:hover {
-  color: #fff;
-  background: rgba(52, 152, 219, 0.2);
+.header-nav-list li a:hover,
+.header-nav-list li a:focus {
+  background: rgba(77, 148, 219, 0.15);
 }
 
-header nav ul li a.active {
-  background: rgba(52, 152, 219, 0.3);
-  color: #fff;
+.footer-text {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 1rem;
 }
 
-/* Section Styles */
+/* Responsive adjustments for header/footer */
+@media (max-width: 768px) {
+  .header-footer-inner {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 1rem;
+  }
+  .header-title {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+  .header-nav-list {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}
+
+/* =====================
+   Section Styles
+   ===================== */
 .section {
-  padding: 4rem 0;
+  padding: var(--section-padding);
   background: var(--transparent-white);
   margin: 2rem 0;
-  border-radius: 16px;
+  border-radius: var(--border-radius);
   box-shadow: 0 8px 24px rgba(0,0,0,0.08);
   backdrop-filter: blur(8px);
 }
@@ -300,62 +332,6 @@ header nav ul li a.active {
   background: var(--primary-color);
   transform: translateY(-5px);
   box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3);
-}
-
-/* Footer Styles */
-footer {
-  background: var(--transparent-dark);
-  padding: 1.5rem 0;
-  text-align: center;
-  color: #fff;
-  backdrop-filter: blur(10px);
-}
-
-footer p {
-  opacity: 0.9;
-  font-size: 0.95rem;
-}
-
-footer a {
-  color: var(--accent-blue);
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-footer a:hover {
-  color: #fff;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  header .container {
-    flex-direction: column;
-  }
-  
-  header nav ul {
-    flex-direction: column;
-    margin-top: 1rem;
-    align-items: center;
-  }
-  
-  header nav ul li {
-    margin: 0.5rem 0;
-  }
-  
-  .project-card {
-    flex: 0 0 90%;
-    padding: 1rem;
-  }
-  
-  .social-icons {
-    gap: 1rem;
-  }
-  
-  .social-icons a {
-    font-size: 1.5rem;
-    width: 45px;
-    height: 45px;
-  }
 }
 
 /* Smooth scrolling behavior */

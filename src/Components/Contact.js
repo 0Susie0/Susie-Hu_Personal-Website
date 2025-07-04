@@ -16,7 +16,7 @@ function Contact() {
       <div className="container">
         <h2>Contact Me</h2>
         <DownloadCVButton />
-        <p>
+        <p style={{ marginTop: '1rem' }} text-align="center">
           Thank you for visiting my website! You can reach me via email at{' '}
           <a href="mailto:SusieHu98@outlook.com"><strong>SusieHu98@outlook.com</strong></a> or call at{' '}
           <a href="tel:+61 483 215 631"><strong>+61 483 215 631</strong></a>.

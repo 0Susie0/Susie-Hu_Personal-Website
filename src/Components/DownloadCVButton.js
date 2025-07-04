@@ -11,7 +11,7 @@ export default function DownloadCVButton() {
   };
 
   return (
-    <div className="flex justify-center items-center"> 
+    <div className="flex justify-center items-center" style={{ marginTop: '0.5rem' }}> 
         <button
             onClick={handleDownload}
             className="flex items-center gap-2 px-5 py-2 bg-gray-700 text-white/95 text-sm font-semibold rounded-full shadow-md border border-gray-300 transition-transform transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-400"

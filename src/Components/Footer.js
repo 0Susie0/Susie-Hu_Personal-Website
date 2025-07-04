@@ -3,9 +3,9 @@ import React from 'react';
 
 function Footer() {
   return (
-    <footer style={{ padding: '1rem 0', backgroundColor: '#222', color: '#fff', textAlign: 'center' }}>
-      <div className="container">
-        <p>&copy; 2025 Susie Hu. All rights reserved.</p>
+    <footer className="header-footer-container footer">
+      <div className="header-footer-inner">
+        <p className="footer-text">&copy; 2025 Susie Hu. All rights reserved.</p>
       </div>
     </footer>
   );

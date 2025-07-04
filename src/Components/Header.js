@@ -3,11 +3,11 @@ import React from 'react';
 
 function Header() {
   return (
-    <header role="banner">
-      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 0' }}>
-        <h1 style={{ margin: 0 }}>Susie Hu</h1>
+    <header className="header-footer-container header" role="banner">
+      <div className="header-footer-inner">
+        <h1 className="header-title">Susie Hu</h1>
         <nav aria-label="Main Navigation">
-          <ul style={{ listStyle: 'none', display: 'flex', gap: '0.5rem', margin: 0, padding: 0 }}>
+          <ul className="header-nav-list">
             <li><a href="#about">About</a></li>
             <li><a href="#portfolio">Portfolio</a></li>
             <li><a href="#skills">Skills</a></li>
